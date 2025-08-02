@@ -9,8 +9,11 @@ struct MainView: View {
                 LazyHGrid(rows: [GridItem(.flexible())], spacing: 16) {
                     ForEach(viewModel.catergories, id: \.self) { item in
                         CategoryCell(text: item, isSelected: viewModel.selectedButton == item) {
-                            viewModel.selectedButton = item
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                viewModel.selectedButton = item
+                            }
                         }
+                        .animation(.easeInOut(duration: 0.2), value: viewModel.selectedButton)
                     }
                 }
                 .padding()
@@ -19,15 +22,25 @@ struct MainView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    openDetailView(viewModel.meditationCollection.first!)
-                        .padding(.horizontal)
+                    if let firstMeditation = viewModel.filteredMeditations.first {
+                        openDetailView(firstMeditation)
+                            .padding(.horizontal)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .top).combined(with: .opacity),
+                                removal: .move(edge: .top).combined(with: .opacity)
+                            ))
+                    }
                     HStack(alignment: .top, spacing: 10) {
                         LazyVGrid(columns: [
                             GridItem(.flexible(), spacing: 0),
                         ], spacing: 16) {
-                            ForEach(viewModel.meditationCollection, id: \.self) { item in
-                                if item.index%2 == 0 && item.index != 0 {
+                            ForEach(Array(viewModel.filteredMeditations.enumerated()), id: \.element.id) { index, item in
+                                if index % 2 == 0 && index != 0 {
                                     openDetailView(item)
+                                        .transition(.asymmetric(
+                                            insertion: .move(edge: .leading).combined(with: .opacity),
+                                            removal: .move(edge: .leading).combined(with: .opacity)
+                                        ))
                                 }
                             }
                         }
@@ -35,15 +48,20 @@ struct MainView: View {
                         LazyVGrid(columns: [
                             GridItem(.flexible(), spacing: 0),
                         ], spacing: 16) {
-                            ForEach(viewModel.meditationCollection, id: \.self) { item in
-                                if item.index%2 != 0 {
+                            ForEach(Array(viewModel.filteredMeditations.enumerated()), id: \.element.id) { index, item in
+                                if index % 2 != 0 {
                                     openDetailView(item)
+                                        .transition(.asymmetric(
+                                            insertion: .move(edge: .trailing).combined(with: .opacity),
+                                            removal: .move(edge: .trailing).combined(with: .opacity)
+                                        ))
                                 }
                             }
                         }
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 8)
+                    .animation(.easeInOut(duration: 0.4), value: viewModel.filteredMeditations)
                 }
             }
         }
@@ -55,11 +73,11 @@ struct MainView: View {
                     .fontWeight(.medium)
                     .font(.system(size: 24))
             },
-            trailing: Button(action: {
-                print("Navigation button tapped")
-            }) {
-                Image(.burger)
-            }
+//            trailing: Button(action: {
+//                print("Navigation button tapped")
+//            }) {
+//                Image(.burger)
+//            }
         )
         .navigationBarBackButtonHidden(true)
     }

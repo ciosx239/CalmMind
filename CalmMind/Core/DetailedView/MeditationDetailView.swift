@@ -81,9 +81,7 @@ struct MeditationDetailView: View {
                             Image(.chevronArrowLeft)
                                 .font(.title)
                         }
-                    },
-                    trailing:
-                        Image(.download)
+                    }
                 )
             }
             .navigationBarBackButtonHidden(true)
@@ -92,11 +90,19 @@ struct MeditationDetailView: View {
 }
 
 #Preview {
-    MeditationDetailView(model: MeditationModel(text: "Reflection",
-                                                image: .reflection,
-                                                background: .blueMain,
-                                                time: 6, index: 1,
-                                                audioURL: URL(string: "http://mediaserv33.live-streams.nl:8034/live")!))
+    MeditationDetailView(
+        model: MeditationModel(
+            text: "Reflection",
+            image: .reflection,
+            background: .blueMain,
+            time: 6,
+            index: 1,
+            audioURL: URL(
+                string: "http://mediaserv33.live-streams.nl:8034/live"
+            )!,
+            category: "Inner Peace"
+        )
+    )
 }
 
 //https://www.hionline.eu/streaming-url/

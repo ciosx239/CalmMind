@@ -8,6 +8,7 @@ struct MeditationModel: Identifiable, Hashable {
     let time: Int
     var index: Int
     let audioURL: URL
+    let category: String
     
     static func ==(lhs: MeditationModel, rhs: MeditationModel) -> Bool {
         return lhs.id == rhs.id

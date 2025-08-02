@@ -36,10 +36,18 @@ struct MeditationCell: View {
 }
 
 #Preview {
-    MeditationCell(viewModel: MeditationModel(text: "Reflection",
-                                              image: .reflection,
-                                              background: .blueMain,
-                                              time: 6, index: 1,
-                                              audioURL: URL(string: "http://mediaserv33.live-streams.nl:8034/live")!))
+    MeditationCell(
+        viewModel: MeditationModel(
+            text: "Reflection",
+            image: .reflection,
+            background: .blueMain,
+            time: 6,
+            index: 1,
+            audioURL: URL(
+                string: "http://mediaserv33.live-streams.nl:8034/live"
+            )!,
+            category: "Inner Peace"
+        )
+    )
     .frame(width: UIScreen.main.bounds.width/2)
 }
