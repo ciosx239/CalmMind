@@ -104,5 +104,3 @@ struct MeditationDetailView: View {
         )
     )
 }
-
-//https://www.hionline.eu/streaming-url/
