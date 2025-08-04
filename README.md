@@ -10,7 +10,7 @@ Users can easily explore and select the kind of experience they need, whether it
 
 ## Screenshots
 
-![Gif](https://github.com/user-attachments/assets/e3d1ea47-ef46-4560-9749-b53296491566)
+![CalmMind](https://github.com/user-attachments/assets/051743df-18fb-476d-a1a6-222d59b5d6b4)
 
 ## Getting Started
 
